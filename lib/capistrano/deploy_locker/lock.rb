@@ -3,16 +3,16 @@ class Lock
 
   def initialize(owner, expiration, message)
     @owner = owner
-    @expiration = exiration
+    @expiration = expiration
     @message = message
   end
 
-  def to_s
-    [owner, expiration, message].join(";")
+  def to_redis_value
+    [owner, expiration.to_f, message].join(";")
   end
 
-  def self.from_s(val)
+  def self.from_redis_value(val)
     owner, exp_str, message = val.split(";")
-    Lock.new(owner, exp_str.to_f, message)
+    Lock.new(owner, Time.at(exp_str.to_f), message)
   end
 end

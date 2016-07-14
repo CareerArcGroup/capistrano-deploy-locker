@@ -1,5 +1,9 @@
+
 require "capistrano/dsl/deploy_locker"
 require "capistrano/deploy_locker/helpers"
+require "capistrano/deploy_locker/lock"
+require "capistrano/deploy_locker/lock_manager"
+require "capistrano/deploy_locker/version"
 
 include Capistrano::DeployLocker::Helpers
 include Capistrano::DSL::DeployLocker
@@ -14,7 +18,7 @@ LockManager.configure(
 
 namespace :deploy_locker do
   desc "Check for a deploy lock. If present, deploy is aborted and message is displayed."
-  task :check_lock
+  task :check_lock do
     lock = LockManager.locked?
 
     # next if no lock is held...
@@ -34,13 +38,13 @@ namespace :deploy_locker do
   end
 
   desc "Creates a lock so that other simultaneous deploys will be blocked"
-  task :create_lock
+  task :create_lock do
     lock = LockManager.locked?
 
     # next if we've already got a lock...
     next unless lock.nil?
 
-    result = LockManager.lock(deploy_user, deploy_locker_expiration, "Deploying #{branch} branch")
+    result = LockManager.lock(deploy_user, "Deploying #{branch} branch")
 
     if !result && (lock = LockManager.locked?)
       abort(DEPLOY_LOCKER_ABORT_MESSAGE % [lock.owner, Time.at(lock.expiration)])
@@ -48,7 +52,7 @@ namespace :deploy_locker do
   end
 
   desc "Removes any existing lock so that other deploys can occur"
-  task :remove_lock
+  task :remove_lock do
     LockManager.clear
   end
 

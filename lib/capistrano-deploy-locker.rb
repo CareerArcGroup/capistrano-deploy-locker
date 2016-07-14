@@ -1,0 +1,1 @@
+require "capistrano/deploy_locker/version"
