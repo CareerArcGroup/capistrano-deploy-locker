@@ -1,14 +1,16 @@
-require 'capistrano'
-
 module Capistrano
   module DSL
     module DeployLocker
-      def deploy_locker_key
-        fetch(:deploy_locker_key, "capistrano:deploy_locker:#{fetch(:application)}")
+      def deploy_locker_redis_config_file
+        fetch(:deploy_locker_redis_config_file)
+      end
+
+      def deploy_locker_key_prefix
+        fetch(:deploy_locker_key_prefix)
       end
 
       def deploy_locker_expiration
-        fetch(:deploy_locker_expiration, 60 * 20)
+        fetch(:deploy_locker_expiration)
       end
     end
   end
