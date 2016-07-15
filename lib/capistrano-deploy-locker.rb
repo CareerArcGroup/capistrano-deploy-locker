@@ -1,5 +1,4 @@
 require "capistrano/dsl/deploy_locker"
-require "capistrano/deploy_locker/date_helper"
 require "capistrano/deploy_locker/helpers"
 require "capistrano/deploy_locker/lock"
 require "capistrano/deploy_locker/lock_manager"

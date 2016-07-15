@@ -55,8 +55,20 @@ namespace :deploy_locker do
     end
   end
 
-  desc "Removes any existing lock so that other deploys can occur"
+  desc "Removes any existing lock that the deploying user holds so that other deploys can occur"
   task :remove_lock do
+    lock = lock_manager.locked?
+
+    if lock != nil && lock.owner == local_user
+      puts deploy_locker_clear_message
+      lock_manager.clear
+    else
+      abort(deploy_locker_abort_message(lock))
+    end
+  end
+
+  desc "Removes any existing lock (regardless of owner) so that other deploys can occur"
+  task :destroy_lock do
     puts deploy_locker_clear_message
     lock_manager.clear
   end
@@ -64,6 +76,7 @@ namespace :deploy_locker do
   before "deploy:starting", "deploy_locker:check_lock"
   before "deploy:starting", "deploy_locker:create_lock"
   before "deploy:finishing", "deploy_locker:remove_lock"
+  after  "deploy:failed", "deploy_locker:remove_lock"
 end
 
 namespace :load do

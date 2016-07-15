@@ -8,7 +8,7 @@ module Capistrano
       DEPLOY_LOCKER_CHECK_MESSAGE   = "[\e[32mDeployLocker\e[0m] Checking for a deploy lock on '%s'".freeze
       DEPLOY_LOCKER_NO_LOCK_MESSAGE = "[\e[32mDeployLocker\e[0m] No deploy lock is currently held, continuing...".freeze
       DEPLOY_LOCKER_CLEAR_MESSAGE   = "[\e[32mDeployLocker\e[0m] Removing deploy lock on '%s'".freeze
-      DEPLOY_LOCKER_ABORT_MESSAGE   = "[\e[31mDeployLocker\e[0m] Aborting! Deploy is locked by %s (expires at %s). Run deploy_locker:remove_lock task to manually clear lock...".freeze
+      DEPLOY_LOCKER_ABORT_MESSAGE   = "[\e[31mDeployLocker\e[0m] Aborting! Deploy is locked by %s (expires at %s). Run deploy_locker:destroy_lock task to manually clear lock...".freeze
       DEPLOY_LOCKER_CREATE_MESSAGE  = "[\e[32mDeployLocker\e[0m] Obtaining deploy lock for user '%s' on '%s' for %s seconds".freeze
       DEPLOY_LOCKER_OWNER_MESSAGE   = "\r[\e[32mDeployLocker\e[0m] Deploy lock is owned by you (%s). Continuing deploy in %s (hit CTRL-C to abort)...".freeze
 
