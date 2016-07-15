@@ -1,0 +1,5 @@
+require "capistrano/dsl/deploy_locker"
+require "capistrano/deploy_locker/helpers"
+require "capistrano/deploy_locker/lock"
+require "capistrano/deploy_locker/lock_manager"
+require "capistrano/deploy_locker/version"

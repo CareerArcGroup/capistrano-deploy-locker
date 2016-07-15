@@ -5,7 +5,7 @@ require 'capistrano/deploy_locker/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "capistrano-deploy-locker"
-  spec.version       = Capistrano::AuthorizedKeys::VERSION
+  spec.version       = Capistrano::DeployLocker::VERSION
   spec.authors       = ["Stephen Roos"]
   spec.email         = ["sroos@careerarc.com"]
 

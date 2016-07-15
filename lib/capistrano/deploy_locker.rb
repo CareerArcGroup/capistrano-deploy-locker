@@ -1,4 +1,5 @@
-require "capistrano/dsl/deploy_locker"
-require "capistrano/deploy_locker/version"
 
+# Load recipe if required from deploy script
 load File.expand_path("../tasks/deploy_locker.rake", __FILE__)
+
+
