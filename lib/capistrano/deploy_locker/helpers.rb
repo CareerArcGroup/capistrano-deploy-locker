@@ -50,14 +50,14 @@ module Capistrano
 
       def load_redis
         config_path = fetch(:deploy_locker_redis_config_file)
-        stage = fetch(:stage)
+        environment = fetch(:rails_env)
 
         raise ArgumentError, "Redis config file '#{config_path}' does not exist" unless File.exists?(config_path)
 
-        config = YAML::load_file(config_path)
-        for_stage = config[stage.to_s] || config
+        config  = YAML::load_file(config_path)
+        for_env = config[environment.to_s] || config
 
-        Redis.new(for_stage)
+        Redis.new(for_env)
       end
     end
   end
