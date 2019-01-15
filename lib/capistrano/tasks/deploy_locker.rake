@@ -59,11 +59,11 @@ namespace :deploy_locker do
   task :remove_lock do
     lock = lock_manager.locked?
 
-    if lock != nil && lock.owner == local_user
+    if lock && lock.owner == local_user
       puts deploy_locker_clear_message
       lock_manager.clear
     else
-      abort(deploy_locker_abort_message(lock))
+      deploy_locker_no_lock_message
     end
   end
 
@@ -75,7 +75,7 @@ namespace :deploy_locker do
 
   before "deploy:starting", "deploy_locker:check_lock"
   before "deploy:starting", "deploy_locker:create_lock"
-  before "deploy:finishing", "deploy_locker:remove_lock"
+  after  "deploy:finished", "deploy_locker:remove_lock"
   after  "deploy:failed", "deploy_locker:remove_lock"
 end
 
