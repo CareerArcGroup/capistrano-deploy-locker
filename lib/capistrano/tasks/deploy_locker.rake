@@ -73,10 +73,10 @@ namespace :deploy_locker do
     lock_manager.clear
   end
 
-  before "deploy:starting",  "deploy_locker:check_lock"
-  before "deploy:starting",  "deploy_locker:create_lock"
-  after  "deploy:finishing", "deploy_locker:remove_lock"
-  after  "deploy:failed",    "deploy_locker:remove_lock"
+  before "deploy:starting", "deploy_locker:check_lock"
+  before "deploy:starting", "deploy_locker:create_lock"
+  after  "deploy:finished", "deploy_locker:remove_lock"
+  after  "deploy:failed",   "deploy_locker:remove_lock"
 end
 
 namespace :load do
